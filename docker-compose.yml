@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  app:
+    image: ms2sato/webassembly_studio:latest
+    build: 
+      context: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/was
+      - ./dist:/was/dist
+      - ./node_modules:/was/node_modules
+    command: bash -c "cd /was && pwd && npm run templates && ./node_modules/webpack-dev-server/bin/webpack-dev-server.js -d --config webpack.config.js --content-base . --progress --colors --port 8080 --host 0.0.0.0"  
